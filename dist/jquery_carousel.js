@@ -60,8 +60,6 @@ if (typeof jQuery === 'undefined') {
     validate(['arr'], params) // 验证参数
     params = startParams(params) // 初始化参数(设置或者合并参数默认值)
 
-    console.log(params)
-
     //取dom元素的宽度和高度
     params.config.width = $this.css('width')
     params.config.height = $this.css('height')
