@@ -1,0 +1,24 @@
+{
+  "name": "jquery_carousel",
+  "version": "1.0.1",
+  "description": "the plugin of carousel with jquery",
+  "main": "dist/jquery_carousel.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caofh/jquery_carousel.git"
+  },
+  "author": "Topay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Caofh/jquery_carousel/issues"
+  },
+  "homepage": "https://github.com/Caofh/jquery_carousel#readme",
+  "dependencies": {
+  }
+}
