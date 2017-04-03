@@ -2,7 +2,7 @@
 <h2 align="center">Install</h2>
 
 ```bash
-npm install jquery_carousel@1.0.4 --save
+npm install jquery_carousel --save
 ```
 
 <h2 align="center">Example</h2>
