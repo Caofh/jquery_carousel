@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery_carousel</title>
+</head>
+
+<body>
+    <div class="container" node-type="container" style="position:relative;width:320px;height:215px;">
+        <div style="position:absolute;top:0;left:0;">ert</div>
+
+
+    </div>
+
+
+</body>
+<script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.js"></script>
+<script src="../dist/jquery_carousel.js"></script>
+<script>
+    var arr = [
+        {
+            src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160804/97947/15191457a2ec726c3ed.png!w320',
+            //href: '//www.baidu.com'
+        },
+        {
+            src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160829/97947/18323857c40f46eed30.png!w320',
+            href: ''
+        },
+        {
+            src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160808/97947/18203257a85cf05360f.png!w320',
+            href: 'www.baidu.com'
+        },
+        {
+            src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160725/97947/1653105795d3768e439.jpg!w320',
+//            href: '//www.jikexueyuan.com'
+        },
+        {
+            src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160505/97947/182955572b20a3ad9d2.jpg!w320',
+            href: ''
+        },
+        {
+            src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160325/97947/17335256f506007560e.jpg!w320',
+            href: 'www.jikexueyuan.com'
+        }
+    ]
+
+    $('[node-type="container"]').carousel({
+        arr: arr,
+//        config: {
+//            speed: 4, //切换图片动画速度
+//            switchSpeed: 3000, //切换图片时间间隔
+//            type: 2 //却换图片动画的效果类别：‘’：向左逐渐滑动；1:逐渐消失显示效果；2:3D旋转效果；可选参数，默认为‘’
+//        },
+//        callback: function (index) { //每次轮播结束后console出数组索引值
+//            console.log(index)
+//        }
+    })
+
+
+</script>
+
+</html>
