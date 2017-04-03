@@ -1,27 +1,15 @@
 /**
- * Created by caofanghui on 4/3/17.
+  Created by caofanghui on 4/3/17.
+  Github address: https://github.com/Caofh/jquery_carousel
  */
 
 //调用方法
 /*
-  html:
-   <div class="container" node-type="container" style="position:relative;width:320px;height:215px;">
-      <!--<div style="position:absolute;top:0;left:0;">此部分自定义</div>-->
-   </div>
-
   js:
    var arr = [
      {
        src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160804/97947/15191457a2ec726c3ed.png!w320',
        //href: '//www.baidu.com'
-     },
-     {
-       src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160829/97947/18323857c40f46eed30.png!w320',
-       href: ''
-     },
-     {
-       src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160817/97947/14424857b40768a8e57.jpg!w320',
-       href: '//www.github.com'
      }
    ]
    //以下参数注释的均为可选参数.
