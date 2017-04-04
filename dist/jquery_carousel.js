@@ -31,6 +31,8 @@ if (typeof jQuery === 'undefined') {
 }
 
 (function ($) {
+  'use strict'
+
   var version = '1.0.0'
 
   // 默认值设置
@@ -41,9 +43,14 @@ if (typeof jQuery === 'undefined') {
   }
 
   // 插件主入口，jQuery扩展
-  $.fn.carousel = function (option) {
+  var carousel = function (option) {
     var params = option,
-        $this = $(this)
+        $this = option.name ? option.name : $(this)
+
+    // 验证dom元素名是否传入.
+    if (!option.name && !$(this).length) {
+      throw new Error('name is not defined')
+    }
 
     validate(['arr'], params) // 验证参数
     params = startParams(params) // 初始化参数(设置或者合并参数默认值)
@@ -76,7 +83,7 @@ if (typeof jQuery === 'undefined') {
     }, params.config.switchSpeed)
   }
 
-  function main (option) {
+  function main(option) {
     //执行三种不同类型的轮播
     if (option.type == 1) {
       type_1(option)
@@ -87,7 +94,7 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-  function type_1 (option) {
+  function type_1(option) {
     var arr = option.arr,
       width = option.name.width(),
       toLeft = 0,
@@ -108,20 +115,20 @@ if (typeof jQuery === 'undefined') {
     }, 400)
   }
 
-  function type_2 (option) {
+  function type_2(option) {
     var arr = option.arr,
       toLeft = 0,
       num = option.num
 
     type_2_loop()
-    function type_2_loop () {
+    function type_2_loop() {
       requestAnimationFrame(function () {
         if (Math.abs(90 - toLeft) <= option.speed) {
           toLeft++
 
           if (arr[num + 1]) {
             option.name.children('.carousel_content_main').children('a').attr('href', arr[num + 1].href)
-              .html('<img style="-webkit-transform:rotateY(-180deg);width:100%;height:100%;" src="'+arr[num + 1].src+'">')
+              .html('<img style="-webkit-transform:rotateY(-180deg);width:100%;height:100%;" src="' + arr[num + 1].src + '">')
 
             if (!arr[num + 1].href) {
               option.name.children('.carousel_content_main').children('a').attr('href', 'javascript:;')
@@ -136,8 +143,8 @@ if (typeof jQuery === 'undefined') {
         }
 
         option.name.children('.carousel_content_main').children('a').css({
-          'transform': 'rotateY('+toLeft+'deg)',
-          '-webkit-transform': 'rotateY('+toLeft+'deg)'
+          'transform': 'rotateY(' + toLeft + 'deg)',
+          '-webkit-transform': 'rotateY(' + toLeft + 'deg)'
         })
 
         if (toLeft < 180) {
@@ -160,14 +167,14 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-  function type_3 (option) {
+  function type_3(option) {
     var arr = option.arr,
       width = option.name.width(),
       toLeft = 0,
       num = option.num
 
     type_3_loop()
-    function type_3_loop (){
+    function type_3_loop() {
       if (arr[num]) {
         option.name.children('.carousel_content_main').children('a').eq(0).attr('href', arr[num].href)
           .children('img').attr('src', arr[num].src)
@@ -235,12 +242,12 @@ if (typeof jQuery === 'undefined') {
   }
 
   //初始化模版
-  function startNode (params, $this) {
+  function startNode(params, $this) {
 
     var carousel_template =
       '<div class="carousel_template"' +
-      'style="width:'+params.config.width+';' +
-      'height:'+params.config.height+';' +
+      'style="width:' + params.config.width + ';' +
+      'height:' + params.config.height + ';' +
       'box-sizing:border-box;' +
       'overflow:hidden;' +
       'position:relative;"' +
@@ -257,19 +264,19 @@ if (typeof jQuery === 'undefined') {
       'height:100%;' +
       'display:block;' +
       'position:absolute;" ' +
-      'href="'+params.arr[0].href+'"> ' +
-      '<img src="'+params.arr[0].src+'"> ' +
+      'href="' + params.arr[0].href + '"> ' +
+      '<img src="' + params.arr[0].src + '"> ' +
       '</a> ' +
       '<a ' +
-      'style="left:'+params.config.width+';' +
+      'style="left:' + params.config.width + ';' +
       'top:0px;' +
       'width:100%;' +
       'height:100%;' +
       'display:block;' +
       'position:absolute;" ' +
-      'href="'+params.arr[1].href+'" ' +
+      'href="' + params.arr[1].href + '" ' +
       '> ' +
-      '<img src="'+params.arr[1].src+'"> ' +
+      '<img src="' + params.arr[1].src + '"> ' +
       '</a> ' +
       '</div> ' +
       '</div>'
@@ -284,9 +291,9 @@ if (typeof jQuery === 'undefined') {
   }
 
   //验证参数
-  function validate (array, option) {
+  function validate(array, option) {
     var must = array,
-        currentParams = []
+      currentParams = []
 
     try {
       loop(option)(function (index, value, key) {
@@ -297,13 +304,13 @@ if (typeof jQuery === 'undefined') {
           throw new Error(value + ' is not defined')
         }
       })
-    } catch (e){
+    } catch (e) {
       throw (e.name + ': ' + e.message)
     }
   }
 
   //初始化参数(设置参数默认值)
-  function startParams (params) {
+  function startParams(params) {
     var params = params
 
     // 初始化arr数据的href属性
@@ -327,7 +334,7 @@ if (typeof jQuery === 'undefined') {
   }
 
   //函数式循环方案
-  var loop = function (obj) { //obj,arr,$('.dev'),'abcde'
+  function loop(obj) { //obj,arr,$('.dev'),'abcde'
     var fun
 
     if (obj instanceof Array || typeof obj === 'string') {
@@ -336,7 +343,7 @@ if (typeof jQuery === 'undefined') {
         for (var i = 0; i < length; i++) {
           var result
           callback && (result = callback(i, obj[i]))
-          if ( result == false || result == 'break') {
+          if (result == false || result == 'break') {
             break
           }
         }
@@ -348,7 +355,7 @@ if (typeof jQuery === 'undefined') {
         obj.each(function (index, element) {
           var result
           callback && (result = callback(index, $(element)))
-          if ( result == false || result == 'break') {
+          if (result == false || result == 'break') {
             return false
           }
         })
@@ -360,8 +367,8 @@ if (typeof jQuery === 'undefined') {
         var i = 0
         for (var key in obj) {
           var result
-          callback && (result =  callback(i, obj[key], key))
-          if ( result == false || result == 'break') {
+          callback && (result = callback(i, obj[key], key))
+          if (result == false || result == 'break') {
             break
           }
           i++
@@ -378,4 +385,30 @@ if (typeof jQuery === 'undefined') {
     return fun
   }
 
+  // 兼容jquery写法，并支持单元测试
+  $.fn.carousel = carousel
+  carousel.main = main
+  carousel.startNode = startNode
+  carousel.validate = validate
+  carousel.startParams = startParams
+  carousel.loop = loop
+
+  // RequireJS && SeaJS
+  if (typeof define === 'function') {
+    define(function() {
+      return carousel;
+    });
+
+    // NodeJS
+  } else if (typeof exports !== 'undefined') {
+    module.exports = carousel;
+  } else {
+    if (this) {
+      this.carousel = carousel;
+    } else {
+      window.carousel = carousel
+    }
+  }
+
 })(jQuery)
+
