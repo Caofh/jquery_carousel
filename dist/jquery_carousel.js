@@ -65,7 +65,15 @@ if (typeof jQuery === 'undefined') {
     var i = 0
     params.callback && params.callback(i)
 
-    setInterval(function () {
+    var className = $this.attr('class')
+    carousel[''+className+''] = className
+    carousel[''+className+'_params'] = params
+
+    carousel[''+className+'_changeLoop'] = setInterval(function () {
+
+
+      carousel[''+className+'_i'] = i
+
       main({
         name: $this.children('[node-type="carousel_template"]'),
         speed: params.config.speed,
@@ -385,8 +393,132 @@ if (typeof jQuery === 'undefined') {
     return fun
   }
 
+  // 支持中断轮播方法
+  $.fn.carousel_stop = function (name) {
+    var $this = name ? name : $(this)
+
+    var className = $this.attr('class')
+    if (carousel[className]) {
+
+      clearInterval(carousel[''+className+'_changeLoop'])
+
+      var i,
+        params = carousel[''+className+'_params']
+
+      if (typeof carousel[''+className+'_i'] !== 'undefined') {
+        i = parseInt(carousel[''+className+'_i']) + 1
+        if (parseInt(carousel[''+className+'_i']) === params.arr.length - 2) {
+          i = -1
+        }
+      } else {
+        i = 0
+      }
+
+      return i
+    }
+
+  }
+  $.fn.carousel_restart = function (name) {
+    var $this = name ? name : $(this)
+
+    var className = $this.attr('class')
+
+    if (carousel[className]) {
+      var params = carousel[''+className+'_params']
+
+      //轮播方法
+      var i
+      if (typeof carousel[''+className+'_i'] !== 'undefined') {
+        i = parseInt(carousel[''+className+'_i']) + 1
+        if (parseInt(carousel[''+className+'_i']) === params.arr.length - 2) {
+          i = -1
+        }
+      } else {
+        i = 0
+      }
+
+      params.callback && params.callback(i)
+
+      carousel[className] = className
+      carousel[''+className+'_params'] = params
+      carousel[''+className+'_changeLoop'] = setInterval(function () {
+        carousel[''+className+'_i'] = i
+
+        main({
+          name: $this.children('[node-type="carousel_template"]'),
+          speed: params.config.speed,
+          switchSpeed: params.config.switchSpeed,
+          type: params.config.type,
+          arr: params.arr,
+          num: i,
+          callback: params.callback
+        })
+
+        i++
+        if (i >= params.arr.length - 1) {
+          i = -1
+        }
+      }, params.config.switchSpeed)
+    }
+
+    return i
+  }
+  $.fn.change_start = function (index, name) {
+    var $this = name ? name : $(this)
+
+    $this.carousel_stop()
+
+    var className = $this.attr('class')
+    $this.find('.carousel_content_main').children('a').eq(0)
+      .attr('href', carousel[''+className+'_params']['arr'][index].href)
+      .find('img').attr('src', carousel[''+className+'_params']['arr'][index].src)
+    $this.find('.carousel_content_main').children('a').eq(1)
+      .attr('href', carousel[''+className+'_params']['arr'][index + 1].href)
+      .find('img').attr('src', carousel[''+className+'_params']['arr'][index + 1].src)
+
+    var className = $this.attr('class')
+
+    if (carousel[className]) {
+      var params = carousel[''+className+'_params']
+
+      //轮播方法
+      var i = parseInt(index)
+      carousel[''+className+'_i'] = index - 1
+
+      params.callback && params.callback(i)
+
+      carousel[className] = className
+      carousel[''+className+'_params'] = params
+      carousel[''+className+'_changeLoop'] = setInterval(function () {
+        carousel[''+className+'_i'] = i
+
+        main({
+          name: $this.children('[node-type="carousel_template"]'),
+          speed: params.config.speed,
+          switchSpeed: params.config.switchSpeed,
+          type: params.config.type,
+          arr: params.arr,
+          num: i,
+          callback: params.callback
+        })
+
+        i++
+        if (i >= params.arr.length - 1) {
+          i = -1
+        }
+      }, params.config.switchSpeed)
+    }
+
+    return i
+
+
+  }
+
   // 兼容jquery写法，并支持单元测试
   $.fn.carousel = carousel
+  carousel.carousel_stop = $.fn.carousel_stop
+  carousel.carousel_restart = $.fn.carousel_restart
+  carousel.change_start = $.fn.change_start
   carousel.main = main
   carousel.startNode = startNode
   carousel.validate = validate

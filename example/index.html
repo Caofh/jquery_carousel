@@ -10,7 +10,7 @@
         <div style="position:absolute;top:0;left:0;">可自定义任何内容</div>
     </div>
 
-
+    <div class="click">click me</div>
 </body>
 <script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.js"></script>
 <script src="../dist/jquery_carousel.js"></script>
@@ -26,7 +26,7 @@
         },
         {
             src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160808/97947/18203257a85cf05360f.png!w320',
-            href: 'www.baidu.com'
+            href: 'http://www.baidu.com'
         },
         {
             src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160725/97947/1653105795d3768e439.jpg!w320',
@@ -38,7 +38,11 @@
         },
         {
             src: '//mstore.b0.upaiyun.com/seller_goods_collection/20160325/97947/17335256f506007560e.jpg!w320',
-            href: 'www.jikexueyuan.com'
+            href: 'http://www.jikexueyuan.com'
+        },
+        {
+            src: '//mstore.b0.upaiyun.com/avatar/20150513/97947/453182934.96659.jpg',
+            href: 'http://www.jikexueyuan.com'
         }
     ]
 
@@ -46,7 +50,7 @@
         arr: arr,
 //        config: {
 //            speed: 10, //切换图片动画速度
-//            switchSpeed: 5000, //切换图片时间间隔
+//            switchSpeed: 2000, //切换图片时间间隔
 //            type: '' //却换图片动画的效果类别：‘’：向左逐渐滑动；1:逐渐消失显示效果；2:3D旋转效果；可选参数，默认为‘’
 //        },
 //        callback: function (index) { //每次轮播结束后console出数组索引值
@@ -54,7 +58,19 @@
 //        }
     })
 
+    $('.container').on('mouseenter', function () {
+        var index = $('.container').carousel_stop()
+        console.log(index)
+    })
 
+    $('.container').on('mouseleave', function () {
+        var index = $('.container').carousel_restart()
+        console.log(index)
+    })
+
+    $('.click').on('click', function () {
+        $('.container').change_start(4)
+    })
 </script>
 
 </html>
