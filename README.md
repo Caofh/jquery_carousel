@@ -57,6 +57,22 @@ carousel({
     })
 ```
 
+<h2 align="center">API</h2>
+
+```
+# 一.停止轮播api
+$('.container').carousel_stop() //注：结束当前轮播，并存在返回值，返回当前停止位置图片的index值。
+
+# 二.继续轮播api
+$('.container').carousel_restart() 注：在未叼哦用change_start函数的前提下，从定制轮播index处继续轮播，此函数有返回值，返回当前所处轮播的index值。
+
+# 三.从第index张图片继续轮播api
+$('.container').change_start(index)  // index为第index张图片参数
+
+## 以上方法均挂载在carousel对象上，同样可通过carousel.carousel_stop(name)、carousel.carousel_restart(name)和carousel.carousel_change_start(index, name)的形式调用。
+
+```
+
 <h2 align="center">Test</h2>
 
 ```
