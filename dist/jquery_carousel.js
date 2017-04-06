@@ -472,9 +472,14 @@ if (typeof jQuery === 'undefined') {
     $this.find('.carousel_content_main').children('a').eq(0)
       .attr('href', carousel[''+className+'_params']['arr'][index].href)
       .find('img').attr('src', carousel[''+className+'_params']['arr'][index].src)
+
     $this.find('.carousel_content_main').children('a').eq(1)
-      .attr('href', carousel[''+className+'_params']['arr'][index + 1].href)
-      .find('img').attr('src', carousel[''+className+'_params']['arr'][index + 1].src)
+      .attr('href', carousel[''+className+'_params']['arr'][index + 1]
+        ? carousel[''+className+'_params']['arr'][index + 1].href
+        : carousel[''+className+'_params']['arr'][0].href)
+      .find('img').attr('src', carousel[''+className+'_params']['arr'][index + 1]
+        ? carousel[''+className+'_params']['arr'][index + 1].src
+        : carousel[''+className+'_params']['arr'][0].src)
 
     var className = $this.attr('class')
 
