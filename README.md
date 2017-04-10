@@ -4,8 +4,6 @@
 ```bash
 本插件依赖jQuery.js或Zepto.js
 ```
-<h1>jquery_carousel</h1>
-<h1>jquery_carousel</h1>
 
 <h2 align="center">Install</h2>
 
