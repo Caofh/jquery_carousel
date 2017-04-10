@@ -26,8 +26,8 @@
    })
 */
 
-if (typeof jQuery === 'undefined') {
-  throw new Error('The plugin(jquery_carousel) is dependent on jQuery')
+if (typeof jQuery === 'undefined' && typeof Zepto === 'undefined') {
+  throw new Error('The plugin(jquery_carousel) is dependent on jQuery or Zepto')
 }
 
 (function ($) {
@@ -547,5 +547,5 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-})(jQuery)
+})($)
 
