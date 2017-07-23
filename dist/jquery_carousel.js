@@ -1,6 +1,6 @@
 /**
   Created by caofanghui on 4/3/17.
-  Github address: https://github.com/Caofh/jquery_carousel
+  Github address: https://github.com/Caofh/jquery_carousel908
  */
 
 //调用方法
